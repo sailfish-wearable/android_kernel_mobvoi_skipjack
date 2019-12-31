@@ -63,8 +63,8 @@ ifeq ($(TARGET_KERNEL),$(current_dir))
 else
     # Legacy style, kernel source directly under kernel
     KERNEL_LEGACY_DIR := true
-    BUILD_ROOT_LOC := ../
-    TARGET_KERNEL_SOURCE := kernel
+    BUILD_ROOT_LOC := ../../../
+    #TARGET_KERNEL_SOURCE := kernel
     KERNEL_OUT := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
 endif
 
@@ -162,6 +162,9 @@ kernelconfig: $(KERNEL_OUT) $(KERNEL_CONFIG)
 	env KCONFIG_NOTIMESTAMP=true \
 	     $(MAKE) -C $(TARGET_KERNEL_SOURCE) O=$(BUILD_ROOT_LOC)$(KERNEL_OUT) ARCH=$(KERNEL_ARCH) CROSS_COMPILE=$(KERNEL_CROSS_COMPILE) savedefconfig
 	cp $(KERNEL_OUT)/defconfig $(TARGET_KERNEL_SOURCE)/arch/$(KERNEL_ARCH)/configs/$(KERNEL_DEFCONFIG)
+
+$(INSTALLED_KERNEL_TARGET): $(KERNEL_CONFIG) $(TARGET_PREBUILT_INT_KERNEL)
+	cp $(TARGET_PREBUILT_INT_KERNEL) $(INSTALLED_KERNEL_TARGET)
 
 endif
 endif
