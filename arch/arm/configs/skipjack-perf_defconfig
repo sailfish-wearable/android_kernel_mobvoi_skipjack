@@ -532,3 +532,6 @@ CONFIG_TIMERFD=y
 # Compile WLAN driver as a module
 CONFIG_PRIMA_WLAN=m
 CONFIG_PRONTO_WLAN=m
+
+# Required for bluetooth
+CONFIG_BT_HCIVHCI=y
